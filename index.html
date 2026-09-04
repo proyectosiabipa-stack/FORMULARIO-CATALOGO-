@@ -1,27 +1,685 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIPA — Regístrate</title>
+<meta name="description" content="Regístrate para recibir el catálogo, novedades y ofertas de Productos BIPA.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-dark:#241b14;
+    --bg-dark-2:#2e2117;
+    --bg-cream:#f7f1e4;
+    --panel-cream:#fffdf8;
+    --ink:#241b14;
+    --ink-soft:#5a4d3d;
+    --ink-inverse:#f7f1e4;
+    --ink-inverse-soft:#cdbfa8;
+    --green:#8aa85c;
+    --green-deep:#5f7a3a;
+    --brown:#a6764f;
+    --brown-deep:#7a5236;
+    --ember:#e2963b;
+    --ember-deep:#b96f24;
+    --line-dark:rgba(247,241,228,0.14);
+    --line-light:#e4d8be;
+    --error:#b3432f;
+    --shadow-lg:0 30px 60px -20px rgba(20,14,8,0.35);
+    --shadow-sm:0 2px 8px rgba(20,14,8,0.06);
+    --radius-lg:22px;
+    --radius-md:12px;
+    --font-display:'Fraunces', serif;
+    --font-body:'Work Sans', sans-serif;
+    --ease:cubic-bezier(.16,.8,.3,1);
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    font-family:var(--font-body);
+    background:var(--bg-cream);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .page{
+    min-height:100vh;
+    display:grid;
+    grid-template-columns:1.05fr 1fr;
+  }
+
+  /* ---------- BRAND PANEL ---------- */
+  .brand{
+    position:relative;
+    background:
+      radial-gradient(ellipse 70% 55% at 30% 8%, rgba(226,150,59,0.16), transparent 60%),
+      linear-gradient(160deg, var(--bg-dark) 0%, var(--bg-dark-2) 100%);
+    color:var(--ink-inverse);
+    padding:clamp(40px, 6vw, 80px);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+  }
+
+  .brand::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:radial-gradient(rgba(247,241,228,0.05) 1px, transparent 1px);
+    background-size:22px 22px;
+    pointer-events:none;
+    opacity:.5;
+  }
+
+  .brand-top{position:relative; z-index:1;}
+
+  .mark-row{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .logo-bipa{
+    display:block;
+    width:min(220px, 48vw);
+    height:auto;
+    max-height:82px;
+    object-fit:contain;
+    object-position:left center;
+  }
+
+  .brand-copy{
+    position:relative; z-index:1;
+    margin-top:clamp(40px, 8vh, 88px);
+    max-width:460px;
+  }
+
+  .eyebrow{
+    font-size:13px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--ember);
+    font-weight:600;
+    margin:0 0 18px;
+  }
+
+  .headline{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:clamp(32px, 3.6vw, 46px);
+    line-height:1.12;
+    margin:0 0 20px;
+    color:var(--ink-inverse);
+  }
+  .headline em{
+    font-style:italic;
+    font-weight:500;
+    color:var(--green);
+  }
+
+  .subcopy{
+    font-size:16px;
+    line-height:1.65;
+    color:var(--ink-inverse-soft);
+    margin:0;
+  }
+
+  .product-row{
+    position:relative; z-index:1;
+    margin-top:auto;
+    padding-top:48px;
+  }
+  .product-row-label{
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--ink-inverse-soft);
+    margin:0 0 18px;
+    border-top:1px solid var(--line-dark);
+    padding-top:22px;
+  }
+  .product-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:22px 28px;
+    list-style:none;
+    margin:0; padding:0;
+  }
+  .product-list li{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:13.5px;
+    color:var(--ink-inverse-soft);
+  }
+  .product-list svg{width:20px; height:20px; flex-shrink:0; opacity:.9;}
+
+  /* ---------- FORM PANEL ---------- */
+  .form-side{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px 24px;
+  }
+
+  .card{
+    width:100%;
+    max-width:420px;
+    background:var(--panel-cream);
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-lg);
+    border:1px solid var(--line-light);
+    padding:clamp(32px,4vw,46px);
+    position:relative;
+  }
+
+  .card-title{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:26px;
+    margin:0 0 8px;
+    color:var(--ink);
+  }
+  .card-subtitle{
+    font-size:14px;
+    line-height:1.55;
+    color:var(--ink-soft);
+    margin:0 0 30px;
+  }
+
+  form{display:block;}
+  .field{margin-bottom:20px; text-align:left;}
+  .field label{
+    display:block;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:0.02em;
+    color:var(--brown-deep);
+    margin-bottom:7px;
+  }
+  .input-wrap{position:relative;}
+
+  input[type="text"],
+  input[type="tel"],
+  input[type="email"]{
+    width:100%;
+    padding:13px 14px;
+    font-family:var(--font-body);
+    font-size:15px;
+    color:var(--ink);
+    background:#fffefb;
+    border:1.5px solid var(--line-light);
+    border-radius:var(--radius-md);
+    outline:none;
+    transition:border-color .18s var(--ease), box-shadow .18s var(--ease), background .18s var(--ease);
+  }
+  input::placeholder{color:#b7ab93;}
+  input:hover{border-color:#d3c19f;}
+  input:focus{
+    border-color:var(--green-deep);
+    background:#ffffff;
+    box-shadow:0 0 0 4px rgba(95,122,58,0.14);
+  }
+  input.invalid{
+    border-color:var(--error);
+  }
+  input.invalid:focus{
+    box-shadow:0 0 0 4px rgba(179,67,47,0.13);
+  }
+
+  .error-msg{
+    display:none;
+    align-items:center;
+    gap:6px;
+    font-size:12.5px;
+    color:var(--error);
+    margin-top:6px;
+  }
+  .error-msg.show{display:flex;}
+
+  /* honeypot - hidden from real users, visible to bots */
+  .hp{
+    position:absolute !important;
+    left:-9999px !important;
+    width:1px; height:1px;
+    overflow:hidden;
+  }
+
+  button[type="submit"]{
+    width:100%;
+    margin-top:8px;
+    padding:14px;
+    border:none;
+    border-radius:var(--radius-md);
+    background:linear-gradient(160deg, var(--ember) 0%, var(--ember-deep) 100%);
+    color:#fff5e8;
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:0.01em;
+    cursor:pointer;
+    box-shadow:0 10px 22px -8px rgba(185,111,36,0.55);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    transition:transform .12s var(--ease), box-shadow .18s var(--ease), filter .18s var(--ease);
+  }
+  button[type="submit"]:hover{filter:brightness(1.05);}
+  button[type="submit"]:active{transform:scale(0.98);}
+  button[type="submit"]:focus-visible{
+    outline:3px solid var(--green-deep);
+    outline-offset:3px;
+  }
+  button[type="submit"]:disabled{cursor:default; filter:grayscale(.15) brightness(.95);}
+
+  .spinner{
+    width:16px; height:16px;
+    border-radius:50%;
+    border:2.5px solid rgba(255,245,232,0.4);
+    border-top-color:#fff5e8;
+    animation:spin .7s linear infinite;
+    display:none;
+  }
+  .is-loading .spinner{display:inline-block;}
+  .is-loading .btn-label{opacity:.85;}
+
+  .form-note{
+    font-size:12px;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:16px 0 0;
+    line-height:1.5;
+  }
+  .catalog-link{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    width:100%;
+    min-height:48px;
+    margin-top:14px;
+    padding:12px 16px;
+    border:1.5px solid var(--green-deep);
+    border-radius:var(--radius-md);
+    background:transparent;
+    color:var(--green-deep);
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:13.5px;
+    line-height:1.25;
+    text-decoration:none;
+    text-align:center;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+    transition:background .18s, color .18s, transform .12s, box-shadow .18s;
+  }
+  .catalog-link:hover{
+    background:#eef3e6;
+    box-shadow:0 6px 16px rgba(95,122,58,0.12);
+  }
+  .catalog-link:active{transform:scale(0.985);}
+  .catalog-link:focus-visible{
+    outline:3px solid var(--green-deep);
+    outline-offset:3px;
+  }
+  .catalog-icon{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;}
+  .catalog-icon svg{width:18px;height:18px;}
+  .catalog-arrow{font-size:18px;line-height:1;transform:translateY(-1px);}
+  .catalog-hint{
+    margin:8px 0 0;
+    color:#8c806d;
+    font-size:11.5px;
+    line-height:1.4;
+    text-align:center;
+  }
+
+  .banner{
+    display:none;
+    align-items:flex-start;
+    gap:10px;
+    font-size:13px;
+    line-height:1.5;
+    background:#fbeae5;
+    color:var(--error);
+    border:1px solid #f0cabf;
+    border-radius:var(--radius-md);
+    padding:12px 14px;
+    margin-bottom:18px;
+  }
+  .banner.show{display:flex;}
+
+  /* ---------- SUCCESS STATE ---------- */
+  .success{
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    padding:12px 0 4px;
+  }
+  .success.show{display:flex;}
+  .card.is-success form,
+  .card.is-success .card-title,
+  .card.is-success .card-subtitle{display:none;}
+
+  .seal{
+    width:92px; height:92px;
+    margin-bottom:22px;
+    transform:scale(0);
+    animation:stamp .55s var(--ease) forwards .1s;
+  }
+  .success-title{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:22px;
+    margin:0 0 10px;
+    color:var(--ink);
+  }
+  .success-copy{
+    font-size:14.5px;
+    color:var(--ink-soft);
+    line-height:1.6;
+    margin:0 0 26px;
+    max-width:300px;
+  }
+  .again-btn{
+    background:none;
+    border:1.5px solid var(--line-light);
+    color:var(--brown-deep);
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:13.5px;
+    padding:10px 20px;
+    border-radius:var(--radius-md);
+    cursor:pointer;
+    transition:border-color .18s, background .18s;
+  }
+  .again-btn:hover{background:#f4ecdb; border-color:#d3c19f;}
+
+
+  /* ---------- MOBILE / BROWSER HARDENING ---------- */
+  html, body{
+    min-height:100%;
+    overflow-x:hidden;
+  }
+  body{
+    min-height:100svh;
+  }
+  .page{
+    min-height:100svh;
+  }
+  .brand, .form-side, .card{min-width:0;}
+  .brand{isolation:isolate;}
+  .brand-top, .brand-copy, .product-row{position:relative;z-index:2;}
+  .logo-bipa{
+    width:min(210px, 72vw);
+    max-width:100%;
+    height:auto;
+    object-fit:contain;
+    object-position:left center;
+  }
+  button, input, a{font:inherit;}
+  input, button, .catalog-link, .again-btn{touch-action:manipulation;}
+
+  /* ---------- MOTION ---------- */
+  @keyframes spin{to{transform:rotate(360deg);}}
+  @keyframes stamp{
+    0%{transform:scale(0) rotate(-8deg);}
+    60%{transform:scale(1.08) rotate(2deg);}
+    100%{transform:scale(1) rotate(0deg);}
+  }
+  @keyframes flicker{
+    0%,100%{ transform:translateY(0) scaleY(1); opacity:1; }
+    25%{ transform:translateY(-1px) scaleY(1.04); opacity:.94; }
+    50%{ transform:translateY(0.5px) scaleY(0.97); opacity:1; }
+    75%{ transform:translateY(-0.5px) scaleY(1.02); opacity:.97; }
+  }
+  .flame-mark .flame{
+    transform-origin:50% 85%;
+    animation:flicker 3.2s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 920px){
+    .page{grid-template-columns:1fr;}
+    .brand{padding:36px 28px 42px;}
+    .brand-copy{margin-top:34px;max-width:720px;}
+    .product-row{margin-top:38px;padding-top:0;}
+    .form-side{padding:32px 20px 52px;}
+    .card{max-width:560px;}
+  }
+
+  @media (max-width: 640px){
+    .brand{padding:28px 20px 34px;}
+    .mark-row{gap:0;}
+    .logo-bipa{width:min(190px, 78vw);}
+    .brand-copy{margin-top:28px;}
+    .eyebrow{font-size:11.5px;letter-spacing:.13em;margin-bottom:14px;}
+    .headline{font-size:clamp(30px, 8vw, 38px);line-height:1.1;margin-bottom:16px;}
+    .subcopy{font-size:15px;line-height:1.58;}
+    .product-row{margin-top:30px;}
+    .product-row-label{font-size:11px;padding-top:18px;margin-bottom:14px;}
+    .product-list{gap:14px 18px;}
+    .product-list li{font-size:12.5px;gap:7px;}
+    .product-list svg{width:18px;height:18px;}
+    .form-side{padding:24px 14px 36px;}
+    .card{padding:26px 18px;border-radius:18px;}
+    .card-title{font-size:24px;}
+    .card-subtitle{font-size:14px;margin-bottom:24px;}
+    .field{margin-bottom:17px;}
+    input[type="text"], input[type="tel"], input[type="email"]{
+      min-height:48px;
+      font-size:16px;
+      padding:12px 13px;
+    }
+    button[type="submit"], .catalog-link{min-height:48px;font-size:14px;}
+    .form-note{font-size:11.5px;margin-top:13px;}
+    .catalog-hint{font-size:11px;}
+  }
+
+  @media (max-width: 380px){
+    .brand{padding-left:16px;padding-right:16px;}
+    .form-side{padding-left:10px;padding-right:10px;}
+    .card{padding:24px 15px;}
+    .product-list{gap:12px 14px;}
+    .product-list li{font-size:12px;}
+  }
+
+  @media (min-width: 921px){
+    .brand{min-height:100svh;}
+    .form-side{min-height:100svh;}
+  }
+</style>
+</head>
+<body>
+<noscript><div style="padding:16px;background:#fbeae5;color:#b3432f;text-align:center;font-family:system-ui,sans-serif">Necesitas activar JavaScript para completar el registro.</div></noscript>
+
+<div class="page">
+
+  <!-- BRAND PANEL -->
+  <aside class="brand">
+    <div class="brand-top">
+      <div class="mark-row">
+          <img class="logo-bipa" src="data:image/webp;base64,UklGRkasAABXRUJQVlA4WAoAAAAQAAAAgwMAVAIAQUxQSPJIAAAB/yckSPD/eGtEpO4jsNy2sSTFdoCtRvn+F65KurtmX58R/Z+AeBUADIDPviIJ2+MkKSKCT39rPo60FAZ8zTibpGwABJB5liTZppGZeRSkCEk6TcS6ATJ5jKRcHKukOFVLArHVQdolynNURhWnqhFxlnpH63Ouz8np+Ve0DQAtmwVtrF89gRvOuSBHxZ6XzNZVkUsmT/FFjlawwwZ3JDuOG6Yrt8h7l4O5mXOR4g137IjgWLCPNyRFrY53mRVbEwDcsZfBEWHe8x0D0bSxzhHBgl98wsba8IX9YEN8hPeszRhjcG4k6RHeoAqM5MS+wxfsqGl0CyAq+wY6AAVyG0mOpMjKrPbfZ7VzPayeETEB40sBXBFvlGLqOkWy7fR9eN11OXmPbDO3uNsJYKVBd5XBkmihXCWQgAAl654mUSDyzD0dCyqSl+HWTlKJ5Lm5OHEVkqUyoGsTLwNQkbg14TRcrPBSibemX/NPbNslxrwZW7CRVOfadKrKaLHscWBVGRinneC5PRM9MtrM0QkRmVcmTy3VR0IfoP0TyQGRJNtuW1VkHD5Ba48AJUmrbKMvIYwtWgZoUxh4hE6VQePEtqMk7aXQQe/askoaJ6mqitK9cTgY+3R9ykiVq9Kw02H3bnzUyEsldEo29Ng3O32E9hHDs6RH/MDYS7iQNU7JTtF5o8PIH///p9z4/3e7P85MMEkmthpvalpqZU2tRbdbndTY+3d98e2bdu2bdu2bby8OY/HH0kzZ04m2c/lnM/l0oiYAE+0tS17om3b2vcj9djr2nT3t+ctl3d3d3d3f6ueW8sNKNwhuAaChwSCJEQgbkSJXee+NUJxHteV5GSMqzoRMQGUJNuW20b3gZJ249r/NqpGNev7vtgB+P+/dwYEwV+kI17EH0XEBPi5bVuVa9vWSm29jxEhDGnSZt7+9pj3dvFP7P/Ee5tMFjMz2Mx7W4vX1p4KxejVkGZoSNHbtCNiAjxv/78+zbVtr/c3lECL1GmBynJ3X6PT3c/zP/DzHJ3bOT5nPnZ3d3d3t65DerRIcYKHBOK/96C0+XxD2nFETADlgJIcyUpEVHXPIK94oMExXAcT/nQc+yGqVpwiYgI827Zt2ta2baW2MSbWWpdt67Zt27btsO2QzsA6CJsh28Y25hzttldZc8ciYgI4MS8E4GyxLIZhLGUY3z7eJyxEka15i0630+l0zJkSIPGNTyEi2DTp6q4fHh2f3Dk9PT4YSy3gw9vbJBBe/bbVapzU69X9vZ3dynaVpx2EvrEhEQFQ6eofn16cnx6u912cN25rs7q5tPywp2+sBmAmfQNDigDahmcX9i5Mjw93G89vGF2ha7FhkMSZS2O3H3U/HZkOMPSNCgkHOmaPHDm0NDbIph4CXSqIW2iwSQYU4xN9j27dHsb0jQkhByaPnVw5NC0AB4TYnhI4Gx/t+mDMVI4wHLocXDl07u9AOOEhseyFwuPiP71gJQsLR8qvXj48ADkYrDaWuP96tsoPkMHnl9qUQwJFouUX68i+jUoPk2MlbDw9ChBCtWFr9o1FmkJzaxXdujBBuomWH76m6ygqSU3/17WudOEYrD584QElBcobe/OQ0uESLf7WKCSfGXGKCSfGXGKCSfGXGKCSfGXGKCSfGXGKCSfGXG..." alt="BIPA">
+      </div>
+    </div>
+
+    <div class="brand-copy">
+      <p class="eyebrow">Catálogo Exclusivo 2026</p>
+      <h1 class="headline">Ilumina cada espacio con <em>esencia y calidad</em></h1>
+      <p class="subcopy">Regístrate para recibir nuestro catálogo actualizado, novedades exclusivas y ofertas especiales directamente en tu correo o WhatsApp.</p>
+    </div>
+
+    <div class="product-row">
+      <div class="product-row-label">Nuestra Línea de Productos</div>
+      <ul class="product-list">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20m-5-15h10"/></svg>
+          Velones y Cirios
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+          Velas Aromáticas
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16m-8-8v16"/></svg>
+          Inciensos y Repelentes
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Gels Ambientadores
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- FORM PANEL -->
+  <main class="form-side">
+    <div class="card">
+      
+      <div class="banner" id="errorBanner">
+        <svg style="width:18px;height:18px;flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span id="bannerText">Ocurrió un error al procesar el registro. Inténtalo de nuevo.</span>
+      </div>
+
+      <h2 class="card-title">Obtén el Catálogo</h2>
+      <p class="card-subtitle">Completa tus datos para enviarte toda la información comercial de Productos BIPA.</p>
+
+      <!-- FORM -->
+      <form id="bipaForm" novalidate>
+        
+        <!-- Honeypot anti-spam (oculto) -->
+        <div class="hp">
+          <label for="website">Sitio web</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label for="nombre">Nombre y Apellido</label>
+          <div class="input-wrap">
+            <input type="text" id="nombre" name="nombre" placeholder="Ej. María Pérez" required autocomplete="name">
+          </div>
+          <div class="error-msg" id="err-nombre">
+            <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span>Por favor, escribe tu nombre completo.</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="telefono">Teléfono / WhatsApp</label>
+          <div class="input-wrap">
+            <input type="tel" id="telefono" name="telefono" placeholder="Ej. +58 412 1234567" required autocomplete="tel">
+          </div>
+          <div class="error-msg" id="err-telefono">
+            <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span>Introduce un número de teléfono válido.</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="email">Correo Electrónico</label>
+          <div class="input-wrap">
+            <input type="email" id="email" name="email" placeholder="Ej. maria@correo.com" required autocomplete="email">
+          </div>
+          <div class="error-msg" id="err-email">
+            <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span>Introduce un correo electrónico válido.</span>
+          </div>
+        </div>
+
+        <button type="submit" id="submitBtn">
+          <span class="spinner"></span>
+          <span class="btn-label">Registrarme y Recibir Catálogo</span>
+        </button>
+
+        <p class="form-note">Tus datos están seguros. No compartimos información con terceros.</p>
+      </form>
+
+      <!-- SUCCESS STATE -->
+      <div class="success" id="successState">
+        <svg class="seal" viewBox="0 0 92 92" fill="none">
+          <circle cx="46" cy="46" r="44" fill="#EBF3E6" stroke="#5F7A3A" stroke-width="3"/>
+          <path d="M28 47L40 59L64 35" stroke="#5F7A3A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3 class="success-title">¡Registro Exitoso!</h3>
+        <p class="success-copy">Hemos guardado tus datos correctamente. Pronto nos pondremos en contacto contigo con el catálogo y novedades.</p>
+        <button type="button" class="again-btn" onclick="resetForm()">Registrar otro usuario</button>
+      </div>
+
+      <!-- CATALOG DIRECT LINK -->
+      <a href="https://drive.google.com" target="_blank" rel="noopener" class="catalog-link">
+        <span class="catalog-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </span>
+        <span>Ver Catálogo Digital BIPA (PDF)</span>
+        <span class="catalog-arrow">&rsaquo;</span>
+      </a>
+      <p class="catalog-hint">Puedes consultar el catálogo actual de manera inmediata sin necesidad de registrarte.</p>
+
+    </div>
+  </main>
+
+</div>
+
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    const form = document.getElementById("bipaForm"); // Asegúrate de que tu <form> tenga id="bipaForm"
+    const form = document.getElementById("bipaForm");
     const card = document.querySelector(".card");
     const submitBtn = document.getElementById("submitBtn");
     const errorBanner = document.getElementById("errorBanner");
+    const bannerText = document.getElementById("bannerText");
 
     if (form) {
       form.addEventListener("submit", function(e) {
         e.preventDefault();
         
         // Validar honeypot antispam
-        const hp = form.querySelector('input[name="website"]');
+        const hp = document.getElementById("website");
         if (hp && hp.value) return; 
+
+        // Limpiar errores visuales previos
+        document.querySelectorAll('input').forEach(el => el.classList.remove('invalid'));
+        document.querySelectorAll('.error-msg').forEach(el => el.classList.remove('show'));
+        if (errorBanner) errorBanner.classList.remove("show");
+
+        // Validaciones sencillas del lado cliente
+        const nombre = document.getElementById("nombre").value.trim();
+        const telefono = document.getElementById("telefono").value.trim();
+        const email = document.getElementById("email").value.trim();
+
+        let isValid = true;
+        if (!nombre) {
+          document.getElementById("nombre").classList.add("invalid");
+          document.getElementById("err-nombre").classList.add("show");
+          isValid = false;
+        }
+        if (!telefono || telefono.length < 6) {
+          document.getElementById("telefono").classList.add("invalid");
+          document.getElementById("err-telefono").classList.add("show");
+          isValid = false;
+        }
+        if (!email || !email.includes("@")) {
+          document.getElementById("email").classList.add("invalid");
+          document.getElementById("err-email").classList.add("show");
+          isValid = false;
+        }
+
+        if (!isValid) return;
 
         card.classList.add("is-loading");
         submitBtn.disabled = true;
-        if (errorBanner) errorBanner.classList.remove("show");
 
-        // Recopilar datos del formulario
         const formData = {
-          nombre: form.querySelector('[name="nombre"]').value,
-          telefono: form.querySelector('[name="telefono"]').value,
-          email: form.querySelector('[name="email"]').value
+          nombre: nombre,
+          telefono: telefono,
+          email: email
         };
 
         // Enviar usando google.script.run
@@ -35,10 +693,8 @@
           .withFailureHandler(function(error) {
             card.classList.remove("is-loading");
             submitBtn.disabled = false;
-            if (errorBanner) {
-              errorBanner.textContent = "Hubo un error al registrarse. Inténtalo de nuevo.";
-              errorBanner.classList.add("show");
-            }
+            if (bannerText) bannerText.textContent = "Hubo un error de conexión con Apps Script. Inténtalo de nuevo.";
+            if (errorBanner) errorBanner.classList.add("show");
           })
           .procesarRegistro(formData);
       });
@@ -50,10 +706,14 @@
     const form = document.getElementById("bipaForm");
     const successState = document.getElementById("successState");
     const submitBtn = document.getElementById("submitBtn");
+    const errorBanner = document.getElementById("errorBanner");
     
     if (form) form.reset();
     if (successState) successState.classList.remove("show");
+    if (errorBanner) errorBanner.classList.remove("show");
     card.classList.remove("is-success");
     if (submitBtn) submitBtn.disabled = false;
   }
 </script>
+</body>
+</html>
